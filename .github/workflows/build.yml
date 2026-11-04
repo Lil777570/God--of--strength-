@@ -1,0 +1,27 @@
+name: Build God of Strength
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/pspdev/pspsdk:latest
+
+    steps:
+      - name: Download game source
+        uses: actions/checkout@v4
+
+      - name: Compile PSP game
+        run: make
+
+      - name: Upload PSP game
+        uses: actions/upload-artifact@v4
+        with:
+          name: God-of-Strength-PSP
+          path: EBOOT.PBP
